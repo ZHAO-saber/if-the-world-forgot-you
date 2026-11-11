@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#F2EEE6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>如果世界忘记了你</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl"></canvas>
+  <canvas id="pile"></canvas>
+
+  <div id="hud" class="booting">
+    <div id="counter">已删除 <span class="num">31,200</span></div>
+
+    <div id="meta"></div>
+
+    <div id="prelude">
+      <div class="l0">林夏 · 1993 — 2026 · 数字遗产清除</div>
+      <div class="l1">系统已自动清除 31,200 个文件，剩余 8 个需要人工确认</div>
+      <div class="l2">按住，删除。</div>
+    </div>
+
+    <div id="sys"></div>
+
+    <div id="interlude">
+      <div class="i1">以下文件需要额外确认</div>
+      <div class="i2">删除申请人：林夏（本人）· 定时请求 · 设置于 2 年前</div>
+      <div class="i3">「如果我走了，请删掉我，别让他们难过。」</div>
+    </div>
+
+    <div id="ending">
+      <div class="line e1">已删除：31,207</div>
+      <div class="line e2">剩余：1 个文件，2,417 个人</div>
+      <div class="line e2b">删除未完成：2,417 处痕迹在别人的记忆里</div>
+      <div class="line e3">这一部分，不属于我们。</div>
+      <div class="line e4">如果明天你消失了，你会留在谁那里？</div>
+    </div>
+
+    <div id="hint">按住以删除</div>
+    <div id="restart" data-ui>重新开始</div>
+  </div>
+</div>
+
+<script defer src="js/core.js"></script>
+<script defer src="js/melody.js"></script>
+<script defer src="js/paper.js"></script>
+<script defer src="js/art.js"></script>
+<script defer src="js/audio.js"></script>
+<script defer src="js/shaders.js"></script>
+<script defer src="js/gl.js"></script>
+<script defer src="js/layers.js"></script>
+<script defer src="js/input.js"></script>
+<script defer src="js/story.js"></script>
+<script defer src="js/main.js"></script>
+</body>
+</html>
