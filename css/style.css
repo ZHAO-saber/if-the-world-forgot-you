@@ -1,0 +1,312 @@
+/* 《如果世界忘记了你》— style.css
+ * 暗房：相纸白、墨、安全灯暗红。小字号、大留白。
+ */
+
+:root {
+  --paper: #F2EEE6;
+  --ink: #1C1B19;
+  --red: #9E2B25;
+  --mute: #8A8378;
+  --serif: "Songti SC", "STSong", "Noto Serif SC", "SimSun", "Source Han Serif SC", serif;
+  --mono: "SFMono-Regular", "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+  font-family: var(--serif);
+  color: var(--ink);
+  cursor: default;
+}
+
+img, canvas { -webkit-user-drag: none; user-select: none; }
+
+#stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+#gl, #pile {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#pile { pointer-events: none; }
+
+#hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ---------------- 左上角计数 ---------------- */
+#counter {
+  position: absolute;
+  left: calc(22px + env(safe-area-inset-left, 0px));
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  color: var(--mute);
+  opacity: 0.9;
+  transition: opacity 1.2s ease;
+  white-space: nowrap;
+}
+#counter .num { color: #6E675C; }
+
+/* ---------------- 卡片下方：元数据 ---------------- */
+#meta {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #7C756A;
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---------------- 开场两行 ---------------- */
+#prelude {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+#prelude .l0 {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--mute);
+  opacity: 0;
+  transition: opacity 2.2s ease;
+  white-space: nowrap;
+}
+#prelude .l1 {
+  margin-top: 9px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--mute);
+  opacity: 0;
+  transition: opacity 2.2s ease;
+  white-space: nowrap;
+}
+#prelude .l2 {
+  margin-top: 13px;
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 2s ease;
+  white-space: nowrap;
+}
+#prelude .l2::after {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-left: 2px;
+  background: currentColor;
+  opacity: 0.2;
+  vertical-align: -0.08em;
+  animation: caretBreathe 5.2s ease-in-out infinite;
+}
+@keyframes caretBreathe {
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.34; }
+}
+
+/* ---------------- 最后一页的系统文字（左下，日志式） ---------------- */
+#sys {
+  position: absolute;
+  left: calc(22px + env(safe-area-inset-left, 0px));
+  bottom: calc(26px + env(safe-area-inset-bottom, 0px));
+  width: min(430px, 86vw);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 2.05;
+  letter-spacing: 0.07em;
+  color: var(--red);
+}
+#sys .sl {
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+/* ---------------- 过场 ---------------- */
+#interlude {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(560px, 88vw);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+#interlude .i1 {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.16em;
+  color: var(--mute);
+}
+#interlude .i2 {
+  margin-top: 38px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 2.2;
+  letter-spacing: 0.06em;
+  color: var(--mute);
+  opacity: 0;
+  transition: opacity 1.8s ease;
+}
+#interlude .i3 {
+  margin-top: 50px;
+  font-family: var(--serif);
+  font-size: 17.5px;
+  line-height: 2.1;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 2.4s ease;
+}
+
+/* ---------------- 结局 ---------------- */
+#ending {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+#ending .line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  white-space: nowrap;
+  text-align: center;
+}
+#ending .e1 { top: 35.5%; }
+#ending .e2 { top: 41.5%; }
+#ending .e2b { top: 47%; }
+#ending .e3 { top: 53.5%; }
+#ending .e4 { top: 58%; }
+#ending .e1, #ending .e2 {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--mute);
+  transition: opacity 2.2s ease;
+}
+#ending .e3 {
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  transition: opacity 2.6s ease;
+}
+#ending .e2b {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  opacity: 0;
+  transition: opacity 2.4s ease;
+}
+#ending .e4 {
+  font-family: var(--serif);
+  font-size: clamp(16px, 2.1vw, 19px);
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  transition: opacity 3.4s ease;
+  white-space: normal;
+  width: min(680px, 84vw);
+  line-height: 2;
+}
+
+/* ---------------- 重新开始 ---------------- */
+#restart {
+  position: absolute;
+  right: calc(22px + env(safe-area-inset-right, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--mute);
+  opacity: 0;
+  transition: opacity 2s ease;
+  pointer-events: none;
+  cursor: pointer;
+  padding: 6px 2px;
+}
+#restart.on {
+  opacity: 0.5;
+  pointer-events: auto;
+}
+#restart.on:hover { opacity: 0.85; }
+
+/* ---------------- 极淡提示 ---------------- */
+#hint {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: var(--mute);
+  opacity: 0;
+  transition: opacity 1.6s ease;
+  white-space: nowrap;
+}
+
+/* ---------------- 加载期：什么都不显示 ---------------- */
+#hud.booting #counter,
+#hud.booting #meta,
+#hud.booting #prelude { opacity: 0 !important; }
+
+/* ---------------- 横屏 ---------------- */
+@media (orientation: landscape) and (max-height: 560px) {
+  #counter { font-size: 10px; top: 12px; left: 14px; }
+  #sys { font-size: 10.5px; bottom: 14px; left: 14px; line-height: 1.9; }
+  #prelude .l2 { font-size: 13.5px; margin-top: 10px; }
+  #prelude .l1 { font-size: 10.5px; }
+  #interlude .i3 { font-size: 13.5px; margin-top: 26px; }
+  #interlude .i2 { margin-top: 20px; }
+  #restart { bottom: 12px; right: 14px; }
+}
+
+/* ---------------- 减少动态 ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  #prelude .l2::after { animation: none; opacity: 0.22; }
+  #ending .line { transition-duration: 1.2s; }
+}
